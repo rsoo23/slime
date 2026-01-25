@@ -4,10 +4,11 @@
 #include <raymath.h>
 #include <Components.hpp>
 #include "UniformGrid.hpp"
+#include "Config.hpp"
 
 class Scene {
     public:
-        Scene(int targetFPS, int width, int height, int gap, float probability, int pheromoneLifetime, int particleSpeed);
+        Scene(const Config& config);
         ~Scene();
 
         void startScene();
@@ -18,12 +19,30 @@ class Scene {
         int targetFPS;
         int screenWidth;
         int screenHeight;
+
+        int particleSpeed;
+        float turnSpeed;
+        float sensorDistance;
+        Color particleColor;
+
+        int pheromoneLifetime;
+        float evaporationSpeed;
+        float diffusionSpeed;
+        Color pheromoneColor;
+
+        InitType initType;
+
+        float gridSize;
         int particleGap;
         float spawnProbability;
-        int pheromoneLifetime;
-        int particleSpeed;
+
+        int particleNum;
+        float spawnRadius;
+
+
         UniformGrid pheromoneGrid;
         
         void initializeSlimeParticles();
-        void initializePheromoneGrid();
+        void initializeSlimeParticlesRandom();
+        void initializeSlimeParticlesCircleOutwards();
 };

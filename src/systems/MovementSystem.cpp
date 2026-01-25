@@ -26,11 +26,8 @@ float samplePheromoneValue(Vector2 particlePos, Vector2 sensorDir, UniformGrid& 
     return pheromoneGrid.cells[frontSensorGridIdx];
 };
 
-void MovementSystem(entt::registry& registry, float deltaTime, int screenHeight, int screenWidth, UniformGrid& pheromoneGrid, int particleSpeed) {
+void MovementSystem(entt::registry& registry, float deltaTime, int screenHeight, int screenWidth, UniformGrid& pheromoneGrid, int particleSpeed, float turnSpeed, float sensorDistance) {
     auto view = registry.view<SlimeParticle, Position2D, Direction2D>();
-    
-    const float sensorDistance = 2.0f; // distance ahead to place sensors
-    const float turnSpeed = 1000.f;
 
     for (auto e : view) {
         auto& particlePos = view.get<Position2D>(e);
@@ -43,13 +40,11 @@ void MovementSystem(entt::registry& registry, float deltaTime, int screenHeight,
         
         // sample front pheromone value
         float frontPheromoneVal = samplePheromoneValue(particlePos.value, frontSensorDir.value, pheromoneGrid, sensorDistance);
-        // std::cout << "Front Pheromone Value: " << frontPheromoneVal << std::endl;
 
         // sample left pheromone value (45 degrees left)
         Vector2 leftSensorDir = Vector2Rotate(frontSensorDir.value, -45 * DEG2RAD);
         float leftPheromoneVal = samplePheromoneValue(particlePos.value, leftSensorDir, pheromoneGrid, sensorDistance);
 
-        // std::cout << "Front Pheromone Value: " << frontPheromoneVal << std::endl;
         // sample right pheromone value (45 degrees right)
         Vector2 rightSensorDir = Vector2Rotate(frontSensorDir.value, 45 * DEG2RAD);
         float rightPheromoneVal = samplePheromoneValue(particlePos.value, rightSensorDir, pheromoneGrid, sensorDistance);

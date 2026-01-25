@@ -4,9 +4,7 @@
 #include <UniformGrid.hpp>
 #include <iostream>
 
-void PheromoneDiffusionSystem(entt::registry& registry, float deltaTime, UniformGrid& pheromoneGrid) {
-    constexpr float evaporationSpeed = 1.f;
-    constexpr float diffusionSpeed = 10.f;
+void PheromoneDiffusionSystem(entt::registry& registry, float deltaTime, UniformGrid& pheromoneGrid, float diffusionSpeed, float evaporationSpeed) {
     std::vector<float> tempCells = pheromoneGrid.cells;
 
     for (size_t i = 0; i < pheromoneGrid.cells.size(); ++i) {
