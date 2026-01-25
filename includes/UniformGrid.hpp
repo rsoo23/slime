@@ -1,0 +1,21 @@
+#pragma once
+#include <entt.hpp>
+#include <raylib.h>
+#include <raymath.h>
+#include <Components.hpp>
+
+class UniformGrid {
+    public:
+        UniformGrid(int width, int height, int cellSize);
+        ~UniformGrid();
+
+        int width;
+        int height;
+        int cellSize;
+
+        std::vector<float> cells;
+
+        int toIndex(int x, int y);
+        std::pair<int, int> toWorldCoord(size_t index);
+        bool checkPosWithinGrid(float worldX, float worldY);
+};
