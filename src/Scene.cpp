@@ -2,7 +2,6 @@
 #include <Scene.hpp>
 #include <RenderSystem.hpp>
 #include <MovementSystem.hpp>
-#include <PheromoneLifetimeSystem.hpp>
 #include <UniformGrid.hpp>
 #include <PheromoneDepositSystem.hpp>
 #include <PheromoneDiffusionSystem.hpp>
@@ -61,7 +60,7 @@ void Scene::initializeSlimeParticles() {
     Vector2 center = {screenWidth / 2.0f, screenHeight / 2.0f};
     
     // Number of particles to spawn
-    int numParticles = static_cast<int>(5000); // Adjust based on spawn probability
+    int numParticles = static_cast<int>(50000); // Adjust based on spawn probability
     float spawnRadius = 5.0f; // Radius from center to spawn particles
     
     for (int i = 0; i < numParticles; i++) {
@@ -103,10 +102,8 @@ void Scene::startScene() {
     {
         float deltaTime = GetFrameTime();
 
-        // Call systems directly since UpdateSimulation is in main.cpp
         PheromoneDepositSystem(registry, pheromoneLifetime, pheromoneGrid);
         MovementSystem(registry, deltaTime, screenHeight, screenWidth, pheromoneGrid, particleSpeed);
-        // PheromoneLifetimeSystem(registry, deltaTime, pheromoneGrid);
         PheromoneDiffusionSystem(registry, deltaTime, pheromoneGrid);
 
         BeginDrawing();
