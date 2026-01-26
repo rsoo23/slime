@@ -1,34 +1,50 @@
 # Introduction
+
 This project is a fun experiment allowing me to explore RayLib and Entity Component Systems using the entt library. Playing around with the configurations and logic also showed me how simple logic can create satisfying patterns that resemble what we can find in nature.
 
-# Setup
+## Setup
+
 ## 1. Clone repository
+
 ```bash
 git clone https://github.com/rsoo23/slime.git
 ```
 
 ## 2. Compile
+
 ### Linux
+
 ```bash
 make PROJECT_NAME=slime
 ```
 
 ### Windows
+
 ```bash
 mingw32-make PROJECT_NAME=slime
 ```
 
-# Showcase
-## Slime Ring
-Configuration:
+## 3. Run the program
+
+```bash
+./slime [pheromoneLifetime] [particleSpeed]
 ```
+
+## Showcase
+
+## Slime Ring
+
+Configuration:
+
+```cpp
 initType = InitType::CircleInwards
 spawnRadius = 200.f
 ...
 ```
+
 <img width="773" height="783" alt="image" src="https://github.com/user-attachments/assets/e562be0b-0aa4-4550-88d6-64abad08275e" />
 
-# High Level Logic
+## High Level Logic
 
 1. Initializes slime particles with a 2D position + direction onto screen (shape / number / randomness is based on initType)
 2. Initializes an uniform 1D array that represents a pheromone grid
@@ -53,9 +69,10 @@ spawnRadius = 200.f
         - render all pheromones particles
         - render all slime particles
 
-# References + Inspiration
+## References + Inspiration
+
 - Sebastian Lague's Coding Adventure: Ant and Slime Simulations
-    - https://www.youtube.com/watch?v=X-iSQQgOd1A
+  - <https://www.youtube.com/watch?v=X-iSQQgOd1A>
 
 - Characteristics of pattern formation and evolution in approximations of physarum transport networks
-    - https://uwe-repository.worktribe.com/output/980579
+  - <https://uwe-repository.worktribe.com/output/980579>
