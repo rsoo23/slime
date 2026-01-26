@@ -2,5 +2,6 @@
 
 enum class InitType {
     Random,
-    CircleOutwards
+    CircleOutwards,
+    CircleInwards,
 };

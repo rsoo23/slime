@@ -30,5 +30,5 @@ struct Config {
 
     // InitType::CircleOutwards settings
     int particleNum = 50000;
-    float spawnRadius = 10.f;
+    float spawnRadius = 200.f;
 };

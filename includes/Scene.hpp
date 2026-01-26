@@ -45,4 +45,5 @@ class Scene {
         void initializeSlimeParticles();
         void initializeSlimeParticlesRandom();
         void initializeSlimeParticlesCircleOutwards();
+        void initializeSlimeParticlesCircleInwards();
 };

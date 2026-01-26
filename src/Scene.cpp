@@ -38,6 +38,9 @@ void Scene::initializeSlimeParticles() {
         case InitType::CircleOutwards:
             initializeSlimeParticlesCircleOutwards();
             break;
+        case InitType::CircleInwards:
+            initializeSlimeParticlesCircleInwards();
+            break;
         default:
             initializeSlimeParticlesCircleOutwards();
             break;
@@ -67,16 +70,11 @@ void Scene::initializeSlimeParticlesRandom() {
 }
 
 void Scene::initializeSlimeParticlesCircleOutwards() {
-    // Calculate center of screen
     Vector2 center = {screenWidth / 2.0f, screenHeight / 2.0f};
     
     for (int i = 0; i < particleNum; i++) {
         // Calculate angle for even distribution around circle
         float angle = (2.0f * PI * i) / particleNum;
-        
-        // Add some random variation to angle for more natural look
-        float angleVariation = GetRandomValue(-30, 30) * DEG2RAD;
-        angle += angleVariation;
         
         // Calculate spawn position on circle
         Vector2 spawnOffset = {
@@ -85,21 +83,44 @@ void Scene::initializeSlimeParticlesCircleOutwards() {
         };
         Vector2 spawnPos = Vector2Add(center, spawnOffset);
         
-        // Direction points radially outward from center (with some randomness)
+        // Direction points radially outward from center
         Vector2 radialDirection = Vector2Normalize(spawnOffset);
-        // float dirVariation = GetRandomValue(-45, 45) * DEG2RAD;
-        // Vector2 direction = Vector2Rotate(radialDirection, dirVariation);
-        Vector2 direction = radialDirection;
         
         auto slimeParticle = registry.create();
         
         registry.emplace<SlimeParticle>(slimeParticle);
         registry.emplace<Position2D>(slimeParticle, spawnPos);
-        registry.emplace<Direction2D>(slimeParticle, direction);
+        registry.emplace<Direction2D>(slimeParticle, radialDirection);
         registry.emplace<SlimeParticleRender>(slimeParticle, WHITE);
     }
 }
 
+void Scene::initializeSlimeParticlesCircleInwards() {
+    Vector2 center = {screenWidth / 2.0f, screenHeight / 2.0f};
+    
+    for (int i = 0; i < particleNum; i++) {
+        // Calculate angle for even distribution around circle
+        float angle = (2.0f * PI * i) / particleNum;
+        
+        // Calculate spawn position on circle
+        Vector2 spawnOffset = {
+            cosf(angle) * spawnRadius,
+            sinf(angle) * spawnRadius
+        };
+        Vector2 spawnPos = Vector2Add(center, spawnOffset);
+        
+        // Direction points radially inwards from center
+        Vector2 radialDirection = Vector2Normalize(spawnOffset);
+        radialDirection = Vector2Scale(radialDirection, -1);
+        
+        auto slimeParticle = registry.create();
+        
+        registry.emplace<SlimeParticle>(slimeParticle);
+        registry.emplace<Position2D>(slimeParticle, spawnPos);
+        registry.emplace<Direction2D>(slimeParticle, radialDirection);
+        registry.emplace<SlimeParticleRender>(slimeParticle, WHITE);
+    }
+}
 Scene::~Scene() {
     CloseWindow();
 }
