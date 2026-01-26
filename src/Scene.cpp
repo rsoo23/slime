@@ -18,6 +18,7 @@ Scene::Scene(const Config& config)
     diffusionSpeed(config.diffusionSpeed),
     pheromoneColor(config.pheromoneColor),
     initType(config.initType),
+    mouseDragSpawn(config.mouseDragSpawn),
     gridSize(config.gridSize),
     particleGap(config.particleGap),
     spawnProbability(config.spawnProbability),
@@ -122,6 +123,22 @@ void Scene::initializeSlimeParticlesCircleInwards() {
     }
 }
 
+void Scene::initializeSlimeParticlesWithMouse() {
+    const auto mousePosition = GetMousePosition();
+    const auto slimeParticle = registry.create();
+
+    Vector2 direction = {
+        (float)GetRandomValue(-100, 100) / 100.0f,
+        (float)GetRandomValue(-100, 100) / 100.0f
+    };
+    Vector2 normalizedDir = Vector2Normalize(direction);
+    
+    registry.emplace<SlimeParticle>(slimeParticle);
+    registry.emplace<Position2D>(slimeParticle, mousePosition);
+    registry.emplace<Direction2D>(slimeParticle, normalizedDir);
+    registry.emplace<SlimeParticleRender>(slimeParticle, WHITE);
+}
+
 Scene::~Scene() {
     CloseWindow();
 }
@@ -130,6 +147,10 @@ void Scene::startScene() {
     while (!WindowShouldClose())
     {
         float deltaTime = GetFrameTime();
+
+        if (mouseDragSpawn && IsMouseButtonDown(MOUSE_BUTTON_LEFT)) {
+            initializeSlimeParticlesWithMouse();
+        }
 
         PheromoneDepositSystem(registry, pheromoneLifetime, pheromoneGrid);
         MovementSystem(registry, deltaTime, screenHeight, screenWidth, pheromoneGrid, particleSpeed, turnSpeed, sensorDistance);

@@ -22,6 +22,7 @@ struct Config {
 
     // Particle spawning settings
     InitType initType = InitType::CircleOutwards;
+    bool mouseDragSpawn = true;
 
     // InitType::Random settings
     int gridSize = 1;

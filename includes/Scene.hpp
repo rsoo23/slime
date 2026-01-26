@@ -31,6 +31,7 @@ class Scene {
         Color pheromoneColor;
 
         InitType initType;
+        bool mouseDragSpawn;
 
         float gridSize;
         int particleGap;
@@ -46,4 +47,5 @@ class Scene {
         void initializeSlimeParticlesRandom();
         void initializeSlimeParticlesCircleOutwards();
         void initializeSlimeParticlesCircleInwards();
+        void initializeSlimeParticlesWithMouse();
 };
