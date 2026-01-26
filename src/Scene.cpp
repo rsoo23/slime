@@ -137,7 +137,7 @@ void Scene::startScene() {
 
         BeginDrawing();
             ClearBackground(BLACK);
-            RenderSystem(registry, pheromoneGrid);
+            RenderSystem(registry, pheromoneGrid, pheromoneColor);
         EndDrawing();
     }
 }

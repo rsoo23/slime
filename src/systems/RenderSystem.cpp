@@ -3,13 +3,13 @@
 #include "includes/raymath.h"
 #include <UniformGrid.hpp>
 
-void RenderSystem(entt::registry& registry, UniformGrid& pheromoneGrid) {
+void RenderSystem(entt::registry& registry, UniformGrid& pheromoneGrid, Color pheromoneColor) {
     auto slimeView = registry.view<SlimeParticle, SlimeParticleRender, Position2D>();
 
     for (size_t i = 0; i < pheromoneGrid.cells.size(); ++i) {
         if (!pheromoneGrid.cells[i]) continue;
     
-        Color color = ColorLerp(BLACK, BLUE, pheromoneGrid.cells[i]);
+        Color color = ColorLerp(BLACK, pheromoneColor, pheromoneGrid.cells[i]);
 
         auto [x, y] = pheromoneGrid.toWorldCoord(i);
 

@@ -3,4 +3,4 @@
 #include "includes/raylib.h"
 #include <UniformGrid.hpp>
 
-void RenderSystem(entt::registry& registry, UniformGrid& pheromoneGrid);
+void RenderSystem(entt::registry& registry, UniformGrid& pheromoneGrid, Color pheromoneColor);
