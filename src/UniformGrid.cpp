@@ -1,6 +1,6 @@
 #include <entt.hpp>
-#include <raylib.h>
-#include <raymath.h>
+#include "includes/raylib.h"
+#include "includes/raymath.h"
 #include <Components.hpp>
 #include <UniformGrid.hpp>
 #include <iostream>

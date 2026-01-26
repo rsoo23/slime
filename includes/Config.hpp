@@ -1,5 +1,5 @@
 #pragma once
-#include <raylib.h>
+#include "includes/raylib.h"
 #include "InitType.hpp"
 
 struct Config {

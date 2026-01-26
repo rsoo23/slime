@@ -1,7 +1,7 @@
 #include <entt.hpp>
 #include <Components.hpp>
-#include <raymath.h>
-#include <raylib.h>
+#include "includes/raymath.h"
+#include "includes/raylib.h"
 #include <UniformGrid.hpp>
 #include <iostream>
 

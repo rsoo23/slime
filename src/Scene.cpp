@@ -121,6 +121,7 @@ void Scene::initializeSlimeParticlesCircleInwards() {
         registry.emplace<SlimeParticleRender>(slimeParticle, WHITE);
     }
 }
+
 Scene::~Scene() {
     CloseWindow();
 }
@@ -136,7 +137,6 @@ void Scene::startScene() {
 
         BeginDrawing();
             ClearBackground(BLACK);
-            
             RenderSystem(registry, pheromoneGrid);
         EndDrawing();
     }
