@@ -144,21 +144,32 @@ Scene::~Scene() {
 }
 
 void Scene::startScene() {
+    bool isPaused = false;
+
     while (!WindowShouldClose())
     {
-        float deltaTime = GetFrameTime();
-
-        if (mouseDragSpawn && IsMouseButtonDown(MOUSE_BUTTON_LEFT)) {
-            initializeSlimeParticlesWithMouse();
+        if (IsKeyPressed(KEY_SPACE)) {
+            isPaused = !isPaused;
         }
 
-        PheromoneDepositSystem(registry, pheromoneLifetime, pheromoneGrid);
-        MovementSystem(registry, deltaTime, screenHeight, screenWidth, pheromoneGrid, particleSpeed, turnSpeed, sensorDistance);
-        PheromoneDiffusionSystem(registry, deltaTime, pheromoneGrid, diffusionSpeed, evaporationSpeed);
+        float deltaTime = GetFrameTime();
+
+        if (!isPaused) {
+            if (mouseDragSpawn && IsMouseButtonDown(MOUSE_BUTTON_LEFT)) {
+                initializeSlimeParticlesWithMouse();
+            }
+
+            PheromoneDepositSystem(registry, pheromoneLifetime, pheromoneGrid);
+            MovementSystem(registry, deltaTime, screenHeight, screenWidth, pheromoneGrid, particleSpeed, turnSpeed, sensorDistance);
+            PheromoneDiffusionSystem(registry, deltaTime, pheromoneGrid, diffusionSpeed, evaporationSpeed);
+        }
 
         BeginDrawing();
             ClearBackground(BLACK);
             RenderSystem(registry, pheromoneGrid, pheromoneColor);
+            if (isPaused) {
+                DrawText("PAUSED", 10, 10, 30, RED);
+            }
         EndDrawing();
     }
 }
