@@ -48,6 +48,10 @@ spawnRadius = 200.f
 
 <img width="773" height="783" alt="image" src="https://github.com/user-attachments/assets/e562be0b-0aa4-4550-88d6-64abad08275e" />
 
+https://github.com/user-attachments/assets/31eb51aa-0e2c-4b0c-b0c6-5ebc58b7dce0
+
+
+
 ## High Level Logic
 
 1. Initializes slime particles with a 2D position + direction onto screen (shape / number / randomness is based on initType)
