@@ -30,9 +30,13 @@ mingw32-make PROJECT_NAME=slime
 ./slime [pheromoneLifetime] [particleSpeed]
 ```
 
+## Configuration
+
+You can configure the settings for the program in `includes/Config.hpp`
+
 ## Showcase
 
-## Slime Ring
+### Slime Ring
 
 Configuration:
 
