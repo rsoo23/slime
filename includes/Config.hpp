@@ -25,7 +25,6 @@ struct Config {
     bool mouseDragSpawn = true;
 
     // InitType::Random settings
-    int gridSize = 1;
     int particleGap = 10;
     float spawnProbability = 0.5f;
 

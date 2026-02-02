@@ -19,12 +19,11 @@ Scene::Scene(const Config& config)
     pheromoneColor(config.pheromoneColor),
     initType(config.initType),
     mouseDragSpawn(config.mouseDragSpawn),
-    gridSize(config.gridSize),
     particleGap(config.particleGap),
     spawnProbability(config.spawnProbability),
     particleNum(config.particleNum),
     spawnRadius(config.spawnRadius),
-    pheromoneGrid(config.screenWidth, config.screenHeight, config.gridSize)
+    pheromoneGrid(config.screenWidth, config.screenHeight)
 {
     InitWindow(screenWidth, screenHeight, "ECS Slimulation");
     SetTargetFPS(targetFPS);

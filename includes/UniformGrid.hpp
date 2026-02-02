@@ -6,12 +6,11 @@
 
 class UniformGrid {
     public:
-        UniformGrid(int width, int height, int cellSize);
+        UniformGrid(int width, int height);
         ~UniformGrid();
 
         int width;
         int height;
-        int cellSize;
 
         std::vector<float> cells;
 

@@ -5,9 +5,8 @@
 #include <UniformGrid.hpp>
 #include <iostream>
 
-UniformGrid::UniformGrid(int width, int height, int cellSize)
-    : width(width), height(height), cellSize(cellSize), 
-      cells(width * height, 0.0f) {}
+UniformGrid::UniformGrid(int width, int height)
+    : width(width), height(height), cells(width * height, 0.0f) {}
 
 UniformGrid::~UniformGrid() {}
 
@@ -20,10 +19,5 @@ std::pair<int, int> UniformGrid::toWorldCoord(size_t index) {
 }
 
 bool UniformGrid::checkPosWithinGrid(float worldX, float worldY) {
-    int cx, cy;
-
-    cx = static_cast<int>(worldX / cellSize);
-    cy = static_cast<int>(worldY / cellSize);
-
-    return cx >= 0 && cx < width && cy >= 0 && cy < height;
+    return worldX >= 0 && worldX < width && worldY >= 0 && worldY < height;
 }

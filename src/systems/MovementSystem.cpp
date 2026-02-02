@@ -14,13 +14,9 @@ float samplePheromoneValue(Vector2 particlePos, Vector2 sensorDir, UniformGrid& 
     if (!pheromoneGrid.checkPosWithinGrid(sensorWorldPos.x, sensorWorldPos.y)) {
         return 0.0f; // return 0 if out of bounds
     }
-    
-    // convert world pos to grid coordinates
-    int gridX = static_cast<int>(sensorWorldPos.x / pheromoneGrid.cellSize);
-    int gridY = static_cast<int>(sensorWorldPos.y / pheromoneGrid.cellSize);
-    
+
     // convert grid coordinates to array index
-    int frontSensorGridIdx = pheromoneGrid.toIndex(gridX, gridY);
+    int frontSensorGridIdx = pheromoneGrid.toIndex(sensorWorldPos.x, sensorWorldPos.y);
     
     // sample pheromone value
     return pheromoneGrid.cells[frontSensorGridIdx];

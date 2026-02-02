@@ -33,7 +33,6 @@ class Scene {
         InitType initType;
         bool mouseDragSpawn;
 
-        float gridSize;
         int particleGap;
         float spawnProbability;
 

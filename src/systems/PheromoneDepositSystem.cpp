@@ -12,12 +12,8 @@ void PheromoneDepositSystem(entt::registry& registry, int pheromoneLifetime, Uni
         if (!pheromoneGrid.checkPosWithinGrid(pos.value.x, pos.value.y)) {
             continue;
         }
-        
-        // convert world coordinates to grid coordinates
-        int gridX = static_cast<int>(pos.value.x / pheromoneGrid.cellSize);
-        int gridY = static_cast<int>(pos.value.y / pheromoneGrid.cellSize);
-        
-        int gridIdx = pheromoneGrid.toIndex(gridX, gridY);
+
+        int gridIdx = pheromoneGrid.toIndex(pos.value.x, pos.value.y);
 
         pheromoneGrid.cells[gridIdx] = pheromoneLifetime;
     };
