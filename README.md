@@ -42,7 +42,8 @@ Configuration:
 
 ```cpp
 initType = InitType::CircleInwards
-spawnRadius = 200.f
+pheromoneLifetime = 2
+particleSpeed = 10
 ...
 ```
 
@@ -50,7 +51,19 @@ spawnRadius = 200.f
 
 https://github.com/user-attachments/assets/31eb51aa-0e2c-4b0c-b0c6-5ebc58b7dce0
 
+### Jellyfish Supernova
 
+Configuration:
+
+```cpp
+initType = InitType::CircleInwards
+pheromoneLifetime = 2
+particleSpeed = 20
+pheromoneColor = PURPLE
+...
+```
+
+https://github.com/user-attachments/assets/46e5f422-1104-42e0-96db-42c0c36eda02
 
 ## High Level Logic
 
