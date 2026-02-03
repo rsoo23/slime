@@ -6,32 +6,15 @@
 #include <PheromoneDiffusionSystem.hpp>
 
 Scene::Scene(const Config& config)
-    : targetFPS(config.targetFPS),
-    screenWidth(config.screenWidth),
-    screenHeight(config.screenHeight),
-    particleSpeed(config.particleSpeed),
-    turnSpeed(config.turnSpeed),
-    sensorDistance(config.sensorDistance),
-    particleColor(config.particleColor),
-    pheromoneLifetime(config.pheromoneLifetime),
-    evaporationSpeed(config.evaporationSpeed),
-    diffusionSpeed(config.diffusionSpeed),
-    pheromoneColor(config.pheromoneColor),
-    initType(config.initType),
-    mouseDragSpawn(config.mouseDragSpawn),
-    particleGap(config.particleGap),
-    spawnProbability(config.spawnProbability),
-    particleNum(config.particleNum),
-    spawnRadius(config.spawnRadius),
-    pheromoneGrid(config.screenWidth, config.screenHeight)
+    : config(config), pheromoneGrid(config.screenWidth, config.screenHeight)
 {
-    InitWindow(screenWidth, screenHeight, "ECS Slimulation");
-    SetTargetFPS(targetFPS);
+    InitWindow(config.screenWidth, config.screenHeight, "ECS Slimulation");
+    SetTargetFPS(config.targetFPS);
     initializeSlimeParticles();
 }
 
 void Scene::initializeSlimeParticles() {
-    switch (initType) {
+    switch (config.initType) {
         case InitType::Random:
             initializeSlimeParticlesRandom();
             break;
@@ -48,9 +31,9 @@ void Scene::initializeSlimeParticles() {
 }
 
 void Scene::initializeSlimeParticlesRandom() {
-    for (int h = 0; h < screenHeight; h += particleGap) {
-        for (int w = 0; w < screenWidth; w += particleGap) {
-            const int hasSlimeParticle = GetRandomValue(0, (int)(1.0f / spawnProbability));
+    for (int h = 0; h < config.screenHeight; h += config.particleGap) {
+        for (int w = 0; w < config.screenWidth; w += config.particleGap) {
+            const int hasSlimeParticle = GetRandomValue(0, (int)(1.0f / config.spawnProbability));
 
             if (hasSlimeParticle == 0) {
                 const Vector2 direction = {
@@ -70,16 +53,16 @@ void Scene::initializeSlimeParticlesRandom() {
 }
 
 void Scene::initializeSlimeParticlesCircleOutwards() {
-    const Vector2 center = {screenWidth / 2.0f, screenHeight / 2.0f};
+    const Vector2 center = {config.screenWidth / 2.0f, config.screenHeight / 2.0f};
     
-    for (int i = 0; i < particleNum; i++) {
+    for (int i = 0; i < config.particleNum; i++) {
         // Calculate angle for even distribution around circle
-        const float angle = (2.0f * PI * i) / particleNum;
+        const float angle = (2.0f * PI * i) / config.particleNum;
         
         // Calculate spawn position on circle
         const Vector2 spawnOffset = {
-            cosf(angle) * spawnRadius,
-            sinf(angle) * spawnRadius
+            cosf(angle) * config.spawnRadius,
+            sinf(angle) * config.spawnRadius
         };
         const Vector2 spawnPos = Vector2Add(center, spawnOffset);
         
@@ -96,16 +79,16 @@ void Scene::initializeSlimeParticlesCircleOutwards() {
 }
 
 void Scene::initializeSlimeParticlesCircleInwards() {
-    const Vector2 center = {screenWidth / 2.0f, screenHeight / 2.0f};
+    const Vector2 center = {config.screenWidth / 2.0f, config.screenHeight / 2.0f};
     
-    for (int i = 0; i < particleNum; i++) {
+    for (int i = 0; i < config.particleNum; i++) {
         // Calculate angle for even distribution around circle
-        const float angle = (2.0f * PI * i) / particleNum;
+        const float angle = (2.0f * PI * i) / config.particleNum;
         
         // Calculate spawn position on circle
         const Vector2 spawnOffset = {
-            cosf(angle) * spawnRadius,
-            sinf(angle) * spawnRadius
+            cosf(angle) * config.spawnRadius,
+            sinf(angle) * config.spawnRadius
         };
         const Vector2 spawnPos = Vector2Add(center, spawnOffset);
         
@@ -154,18 +137,18 @@ void Scene::startScene() {
         const float deltaTime = GetFrameTime();
 
         if (!isPaused) {
-            if (mouseDragSpawn && IsMouseButtonDown(MOUSE_BUTTON_LEFT)) {
+            if (config.mouseDragSpawn && IsMouseButtonDown(MOUSE_BUTTON_LEFT)) {
                 initializeSlimeParticlesWithMouse();
             }
 
-            PheromoneDepositSystem(registry, pheromoneLifetime, pheromoneGrid);
-            MovementSystem(registry, deltaTime, screenHeight, screenWidth, pheromoneGrid, particleSpeed, turnSpeed, sensorDistance);
-            PheromoneDiffusionSystem(deltaTime, pheromoneGrid, diffusionSpeed, evaporationSpeed);
+            PheromoneDepositSystem(registry, config.pheromoneLifetime, pheromoneGrid);
+            MovementSystem(registry, deltaTime, config.screenHeight, config.screenWidth, pheromoneGrid, config.particleSpeed, config.turnSpeed, config.sensorDistance);
+            PheromoneDiffusionSystem(deltaTime, pheromoneGrid, config.diffusionSpeed, config.evaporationSpeed);
         }
 
         BeginDrawing();
             ClearBackground(BLACK);
-            RenderSystem(registry, pheromoneGrid, pheromoneColor);
+            RenderSystem(registry, pheromoneGrid, config.pheromoneColor);
             if (isPaused) {
                 DrawText("PAUSED", 10, 10, 30, RED);
             }

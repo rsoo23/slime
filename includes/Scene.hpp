@@ -16,28 +16,7 @@ class Scene {
         entt::registry registry;
 
     private:
-        int targetFPS;
-        int screenWidth;
-        int screenHeight;
-
-        int particleSpeed;
-        float turnSpeed;
-        float sensorDistance;
-        Color particleColor;
-
-        int pheromoneLifetime;
-        float evaporationSpeed;
-        float diffusionSpeed;
-        Color pheromoneColor;
-
-        InitType initType;
-        bool mouseDragSpawn;
-
-        int particleGap;
-        float spawnProbability;
-
-        int particleNum;
-        float spawnRadius;
+        const Config& config;
 
         UniformGrid pheromoneGrid;
         
