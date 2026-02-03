@@ -2,4 +2,4 @@
 #include <entt.hpp>
 #include <UniformGrid.hpp>
 
-void PheromoneDepositSystem(entt::registry& registry, int pheromoneLifetime, UniformGrid& pheromoneGrid);
+void PheromoneDepositSystem(const entt::registry& registry, const int pheromoneLifetime, UniformGrid& pheromoneGrid);

@@ -39,7 +39,6 @@ class Scene {
         int particleNum;
         float spawnRadius;
 
-
         UniformGrid pheromoneGrid;
         
         void initializeSlimeParticles();

@@ -50,15 +50,15 @@ void Scene::initializeSlimeParticles() {
 void Scene::initializeSlimeParticlesRandom() {
     for (int h = 0; h < screenHeight; h += particleGap) {
         for (int w = 0; w < screenWidth; w += particleGap) {
-            int hasSlimeParticle = GetRandomValue(0, (int)(1.0f / spawnProbability));
+            const int hasSlimeParticle = GetRandomValue(0, (int)(1.0f / spawnProbability));
 
             if (hasSlimeParticle == 0) {
-                Vector2 direction = {
+                const Vector2 direction = {
                     (float)GetRandomValue(-100, 100) / 100.0f,
                     (float)GetRandomValue(-100, 100) / 100.0f
                 };
-                Vector2 normalizedDir = Vector2Normalize(direction);
-                auto slimeParticle = registry.create();
+                const Vector2 normalizedDir = Vector2Normalize(direction);
+                const auto slimeParticle = registry.create();
 
                 registry.emplace<SlimeParticle>(slimeParticle);
                 registry.emplace<Position2D>(slimeParticle, Vector2{(float)w, (float)h});
@@ -70,23 +70,23 @@ void Scene::initializeSlimeParticlesRandom() {
 }
 
 void Scene::initializeSlimeParticlesCircleOutwards() {
-    Vector2 center = {screenWidth / 2.0f, screenHeight / 2.0f};
+    const Vector2 center = {screenWidth / 2.0f, screenHeight / 2.0f};
     
     for (int i = 0; i < particleNum; i++) {
         // Calculate angle for even distribution around circle
-        float angle = (2.0f * PI * i) / particleNum;
+        const float angle = (2.0f * PI * i) / particleNum;
         
         // Calculate spawn position on circle
-        Vector2 spawnOffset = {
+        const Vector2 spawnOffset = {
             cosf(angle) * spawnRadius,
             sinf(angle) * spawnRadius
         };
-        Vector2 spawnPos = Vector2Add(center, spawnOffset);
+        const Vector2 spawnPos = Vector2Add(center, spawnOffset);
         
         // Direction points radially outward from center
-        Vector2 radialDirection = Vector2Normalize(spawnOffset);
+        const Vector2 radialDirection = Vector2Normalize(spawnOffset);
         
-        auto slimeParticle = registry.create();
+        const auto slimeParticle = registry.create();
         
         registry.emplace<SlimeParticle>(slimeParticle);
         registry.emplace<Position2D>(slimeParticle, spawnPos);
@@ -96,24 +96,24 @@ void Scene::initializeSlimeParticlesCircleOutwards() {
 }
 
 void Scene::initializeSlimeParticlesCircleInwards() {
-    Vector2 center = {screenWidth / 2.0f, screenHeight / 2.0f};
+    const Vector2 center = {screenWidth / 2.0f, screenHeight / 2.0f};
     
     for (int i = 0; i < particleNum; i++) {
         // Calculate angle for even distribution around circle
-        float angle = (2.0f * PI * i) / particleNum;
+        const float angle = (2.0f * PI * i) / particleNum;
         
         // Calculate spawn position on circle
-        Vector2 spawnOffset = {
+        const Vector2 spawnOffset = {
             cosf(angle) * spawnRadius,
             sinf(angle) * spawnRadius
         };
-        Vector2 spawnPos = Vector2Add(center, spawnOffset);
+        const Vector2 spawnPos = Vector2Add(center, spawnOffset);
         
         // Direction points radially inwards from center
-        Vector2 radialDirection = Vector2Normalize(spawnOffset);
-        radialDirection = Vector2Scale(radialDirection, -1);
+        const Vector2 normalizedRadialDirection = Vector2Normalize(spawnOffset);
+        const Vector2 radialDirection = Vector2Scale(normalizedRadialDirection, -1);
         
-        auto slimeParticle = registry.create();
+        const auto slimeParticle = registry.create();
         
         registry.emplace<SlimeParticle>(slimeParticle);
         registry.emplace<Position2D>(slimeParticle, spawnPos);
@@ -126,11 +126,11 @@ void Scene::initializeSlimeParticlesWithMouse() {
     const auto mousePosition = GetMousePosition();
     const auto slimeParticle = registry.create();
 
-    Vector2 direction = {
+    const Vector2 direction = {
         (float)GetRandomValue(-100, 100) / 100.0f,
         (float)GetRandomValue(-100, 100) / 100.0f
     };
-    Vector2 normalizedDir = Vector2Normalize(direction);
+    const Vector2 normalizedDir = Vector2Normalize(direction);
     
     registry.emplace<SlimeParticle>(slimeParticle);
     registry.emplace<Position2D>(slimeParticle, mousePosition);
@@ -151,7 +151,7 @@ void Scene::startScene() {
             isPaused = !isPaused;
         }
 
-        float deltaTime = GetFrameTime();
+        const float deltaTime = GetFrameTime();
 
         if (!isPaused) {
             if (mouseDragSpawn && IsMouseButtonDown(MOUSE_BUTTON_LEFT)) {
@@ -160,7 +160,7 @@ void Scene::startScene() {
 
             PheromoneDepositSystem(registry, pheromoneLifetime, pheromoneGrid);
             MovementSystem(registry, deltaTime, screenHeight, screenWidth, pheromoneGrid, particleSpeed, turnSpeed, sensorDistance);
-            PheromoneDiffusionSystem(registry, deltaTime, pheromoneGrid, diffusionSpeed, evaporationSpeed);
+            PheromoneDiffusionSystem(deltaTime, pheromoneGrid, diffusionSpeed, evaporationSpeed);
         }
 
         BeginDrawing();

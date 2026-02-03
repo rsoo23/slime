@@ -14,7 +14,7 @@ class UniformGrid {
 
         std::vector<float> cells;
 
-        int toIndex(int x, int y);
-        std::pair<int, int> toWorldCoord(size_t index);
-        bool checkPosWithinGrid(float worldX, float worldY);
+        int toIndex(int x, int y) const;
+        std::pair<int, int> toWorldCoord(size_t index) const;
+        bool checkPosWithinGrid(float worldX, float worldY) const;
 };

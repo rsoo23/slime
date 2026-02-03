@@ -2,4 +2,4 @@
 #include <entt.hpp>
 #include <UniformGrid.hpp>
 
-void PheromoneDiffusionSystem(entt::registry& registry, float deltaTime, UniformGrid& pheromoneGrid, float diffusionSpeed, float evaporationSpeed);
+void PheromoneDiffusionSystem(const float deltaTime, UniformGrid& pheromoneGrid, const float diffusionSpeed, const float evaporationSpeed);

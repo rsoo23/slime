@@ -10,14 +10,14 @@ UniformGrid::UniformGrid(int width, int height)
 
 UniformGrid::~UniformGrid() {}
 
-int UniformGrid::toIndex(int x, int y) {
+int UniformGrid::toIndex(int x, int y) const {
     return y * width + x;
 }
 
-std::pair<int, int> UniformGrid::toWorldCoord(size_t index) {
+std::pair<int, int> UniformGrid::toWorldCoord(size_t index) const {
     return {static_cast<int>(index % width), static_cast<int>(index / width)};
 }
 
-bool UniformGrid::checkPosWithinGrid(float worldX, float worldY) {
+bool UniformGrid::checkPosWithinGrid(float worldX, float worldY) const {
     return worldX >= 0 && worldX < width && worldY >= 0 && worldY < height;
 }
