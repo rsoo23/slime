@@ -1,5 +1,5 @@
 #pragma once
-#include <includes/raylib.h>
+#include "raylib.h"
 
 struct SlimeParticle {};
 

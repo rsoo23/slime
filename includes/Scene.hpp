@@ -1,7 +1,7 @@
 #pragma once
 #include <entt.hpp>
-#include "includes/raylib.h"
-#include "includes/raymath.h"
+#include "raylib.h"
+#include "raymath.h"
 #include <Components.hpp>
 #include "UniformGrid.hpp"
 #include "Config.hpp"

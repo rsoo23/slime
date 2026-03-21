@@ -10,24 +10,17 @@ This project is a fun experiment allowing me to explore RayLib and Entity Compon
 git clone https://github.com/rsoo23/slime.git
 ```
 
-## 2. Compile
-
-### Linux
+## 2. Build the project
 
 ```bash
-make PROJECT_NAME=slime
-```
-
-### Windows
-
-```bash
-mingw32-make PROJECT_NAME=slime
+cmake -B build -DCMAKE_BUILD_TYPE=Release
+cmake --build build
 ```
 
 ## 3. Run the program
 
 ```bash
-./slime [pheromoneLifetime] [particleSpeed]
+./build/slime [pheromoneLifetime] [particleSpeed]
 ```
 
 ## Configuration

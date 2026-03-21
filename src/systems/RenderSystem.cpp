@@ -1,6 +1,6 @@
 #include <entt.hpp>
 #include <Components.hpp>
-#include "includes/raymath.h"
+#include "raymath.h"
 #include <UniformGrid.hpp>
 
 void RenderSystem(const entt::registry& registry, const UniformGrid& pheromoneGrid, const Color pheromoneColor) {

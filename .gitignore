@@ -2,3 +2,7 @@
 *.dsym
 main
 .vscode/
+.vs/
+*.data
+*.data.old
+build/
